@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PROG_PART_2
+namespace RecipeManager
 {
     // Delegate for notifying the user when a recipe exceeds 300 calories
     public delegate void RecipeNotification(string recipeName);
@@ -88,6 +88,7 @@ namespace PROG_PART_2
 
                 while (!int.TryParse(Console.ReadLine(), out calories) || calories < 0)
                 {
+
                     Console.WriteLine("You have entered an invalid input. Please enter a non-negative integer for calories.");
                 }
 
@@ -108,7 +109,7 @@ namespace PROG_PART_2
         {
             Console.WriteLine("\nDisplay Options:");
             Console.WriteLine("1. Display All Recipes");
-            Console.WriteLine("2. Search for a Specific Recipe");
+            Console.WriteLine("2. Search for a Recipe");
             Console.Write("Choose an option: ");
             string displayOption = Console.ReadLine();
 
@@ -165,7 +166,7 @@ namespace PROG_PART_2
             }
             else
             {
-                Console.WriteLine("No recipes found with the provided name.");
+                Console.WriteLine("There is no recipes found with the provided name.");
             }
         }
 
@@ -197,8 +198,7 @@ namespace PROG_PART_2
             }
             else
             {
-             
-                Console.WriteLine("There is no recipe found.");
+                Console.WriteLine("Recipe not found.");
             }
         }
 
@@ -220,6 +220,16 @@ namespace PROG_PART_2
             Name = name;
         }
 
+            public int GetTotalCalories()
+        {
+            int total = 0;
+            foreach (var ingredient in ingredients)
+            {
+                total += ingredient.Calories;
+            }
+            return total;                                                   
+        }
+
         // Event for notifying the user when a recipe exceeds 300 calories
         public event RecipeNotification NotifyCalorieExceedance;
 
@@ -233,7 +243,8 @@ namespace PROG_PART_2
             {
                 NotifyCalorieExceedance?.Invoke(Name);
             }
-        }
+        } 
+
 
         public void DisplayRecipeDetails()
         {
@@ -297,7 +308,8 @@ namespace PROG_PART_2
             Console.WriteLine("Your total Calories: {0}", totalCalories);
         }
 
-        private int CalculateTotalCalories()
+    
+      private int CalculateTotalCalories()
         {
             int total = 0;
             foreach (var ingredient in ingredients)
