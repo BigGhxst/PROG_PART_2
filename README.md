@@ -3,10 +3,10 @@
 The program is a Recipe Manager application that allows users to manage recipes by inputting details, displaying, scaling, resetting, and clearing data.
 
 ## What is needed to compile and run this application
-	You can use Visual studio
+You can use Visual studio
 
-#Usage
-	Once the program is running, you will be given with a menu for managing your recipes:
+### Usage
+Once the program is running, you will be given with a menu for managing your recipes:
 Menu Option
 1.	Enter Recipe:
 •	prompts the user to enter the recipe's name.
