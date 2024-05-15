@@ -30,3 +30,5 @@ Menu Option
 
 #### GitHub repository link
 https://github.com/Fortunemlilo/PROG_PART_2.git
+
+##### A brief description of what I changed based on the lecture's feedback
