@@ -28,8 +28,8 @@ Menu Option
 6.	Exit:
  Exit the application.
 
-#### GitHub repository link
+### GitHub repository link
 https://github.com/Fortunemlilo/PROG_PART_2.git
 
-##### A brief description of what I changed based on the lecture's feedback.
+### A brief description of what I changed based on the lecture's feedback.
 The Recipe Manager application was significantly improved in response to the lecturer's feedback. The code is now better organized, with logical class definitions and clear, short comments that describe the logic and functionality. A Recipe class was established to contain recipe details, while an Ingredient class was built to manage specific ingredient features such as calories. This increased the readability and management of the code. The user interface was improved with a more interactive menu, and a search option was included to identify specific recipes by name. Calorie tracking was included for each item, along with a warning system that alerts users when total calories exceed 300. More importantly, ingredient quantity scaling and resetting are now more robust, with total calories recalculated following these operations. These modifications make the code more structured, easier to understand, and user-friendly.
