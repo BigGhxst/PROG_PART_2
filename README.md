@@ -27,3 +27,6 @@ Menu Option
  Clears all recipe data from the application itself.
 6.	Exit:
  Exit the application.
+
+#### GitHub repository link
+https://github.com/Fortunemlilo/PROG_PART_2.git
