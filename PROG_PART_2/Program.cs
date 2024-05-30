@@ -34,7 +34,7 @@ namespace RecipeManager
                 {
                     case "1":
                         EnterRecipe(recipes);
-                        Console.WriteLine("=================================================================");
+                        Console.WriteLine("================================================================="); 
                         break;
                     case "2":
                         DisplayAllRecipes(recipes);

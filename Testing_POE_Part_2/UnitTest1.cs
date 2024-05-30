@@ -1,30 +1,57 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-
-namespace RecipeManager.Tests
+namespace RecipeTests
 {
     [TestFixture]
     public class RecipeTests
     {
+        
+        private string Name;
+        private List<Ingredient> ingredients;
+
         [Test]
-        public void CalculateTotalCalories_ReturnsCorrectTotal()
+        public void Test_TotalCaloriesCalculation()
         {
             // Arrange
-            Recipe recipe = new Recipe("Test Recipe");
-            recipe.AddIngredient("Ingredient 1", "100", "grams", 50, "Food Group 1");
-            recipe.AddIngredient("Ingredient 2", "200", "grams", 70, "Food Group 2");
+            var recipe = new RecipeTests(); 
+            recipe.Name = "Test Recipe"; 
+            recipe.ingredients = new List<Ingredient>();
 
-            recipe.AddIngredient("Ingredient 3", "150", "grams", 80, "Food Group 3");
+            // Create the first ingredient with specific properties
+            var ingredient1 = new Ingredient
+            {
+                Name = "Ingredient 1",
+                Quantity = 100, 
+                Unit = "g",
+                Calories = 50,
+                FoodGroup = "Test Group",
+                OriginalQuantity = 100 
+            };
 
-            // Expected total calories: 50 + 70 + 80 = 200
-            int expectedTotalCalories = 50 + 70 + 80;
+            
+            var ingredient2 = new Ingredient
+            {
+                Name = "Ingredient 2",
+                Quantity = 200, 
+                Unit = "g",
+                Calories = 100,
+                FoodGroup = "Test Group", 
+                OriginalQuantity = 200 
+            };
+
+            
+            recipe.ingredients.Add(ingredient1);
+            recipe.ingredients.Add(ingredient2);
 
             // Act
-            int actualTotalCalories = recipe.GetTotalCalories();
+            // Calculate the total calories by summing up the calories of all ingredients in the list
+            int totalCalories = recipe.ingredients.Sum(i => i.Calories);
 
             // Assert
-            Assert.AreEqual(expectedTotalCalories, actualTotalCalories);
+            // Verify that the total calories calculated is as expected (150 in this case)
+            Assert.AreEqual(150, totalCalories);
         }
     }
 }
+

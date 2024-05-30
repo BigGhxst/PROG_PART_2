@@ -14,5 +14,10 @@ namespace RecipeManager
         {
             throw new NotImplementedException();
         }
+
+        internal int GetTotalCalories()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
