@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,7 @@ namespace RecipeManager
         {
             Console.WriteLine("<<<<<<<<<<<<<<<<<<<<<WELCOME TO RECIPE MANAGER!>>>>>>>>>>>>>>>>>>>>");
 
+            // Generic collection to store all recipes
             List<Recipe> recipes = new List<Recipe>();
 
             bool exit = false;
@@ -62,6 +64,7 @@ namespace RecipeManager
             }
         }
 
+        // Method to enter a new recipe
         static void EnterRecipe(List<Recipe> recipes)
         {
             Console.WriteLine("\nEnter Recipe Details:");
@@ -95,16 +98,19 @@ namespace RecipeManager
                 Console.Write("Food Group: ");
                 string foodGroup = Console.ReadLine();
 
+                // Add ingredient to the recipe
                 recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
 
                 Console.Write("Add another ingredient? (yes/no): ");
                 addIngredients = Console.ReadLine().ToLower() == "yes";
             }
 
+            // Add recipe to the collection
             recipes.Add(recipe);
             Console.WriteLine("Recipe '{0}' added successfully!", name);
         }
 
+        // Method to display all recipes
         static void DisplayAllRecipes(List<Recipe> recipes)
         {
             Console.WriteLine("\nDisplay Options:");
@@ -150,26 +156,36 @@ namespace RecipeManager
             }
         }
 
+        // Method to search for a specific recipe by name
         static void SearchRecipe(List<Recipe> recipes)
         {
             Console.Write("Enter the name of the recipe to search for: ");
             string searchName = Console.ReadLine();
-
+            
+            //foundRecipes will be an enumerable collection of recipes that match the search condition
             var foundRecipes = recipes.Where(r => r.Name.ToLower().Contains(searchName.ToLower()));
-            if (foundRecipes.Any())
+            // The condition r.Name.ToLower().Contains(searchName.ToLower()) checks if the name
+            // of the recipe r.Name contains the search string searchName, ignoring case
+            // (both are converted to lowercase for a case-insensitive comparison).
+                        if (foundRecipes.Any())
             {
                 Console.WriteLine("\nFound Recipes:");
+                // checks if there are any recipes in the foundRecipes collection.
+                //It iterates over each found recipe (foreach (var recipe in foundRecipes))
+                //and calls the DisplayRecipeDetails method on each one to print its details.
                 foreach (var recipe in foundRecipes)
                 {
                     recipe.DisplayRecipeDetails();
                 }
             }
+            //if it doesn't match,will gv out a msg
             else
             {
                 Console.WriteLine("There is no recipes found with the provided name.");
             }
         }
 
+        // Method to scale a recipe
         static void ScaleRecipe(List<Recipe> recipes)
         {
             Console.Write("\nEnter the name of the recipe to scale: ");
@@ -186,6 +202,7 @@ namespace RecipeManager
             }
         }
 
+        // Method to reset the quantities of a recipe
         static void ResetQuantities(List<Recipe> recipes)
         {
             Console.Write("\nEnter the name of the recipe to reset quantities: ");
@@ -201,7 +218,7 @@ namespace RecipeManager
                 Console.WriteLine("Recipe not found.");
             }
         }
-
+        // Method to clear all recipe data
         static void ClearData(List<Recipe> recipes)
         {
             recipes.Clear();
@@ -212,15 +229,18 @@ namespace RecipeManager
     class Recipe
     {
         public string Name { get; }
+        // Generic collection to store all ingredients for this recipe
         private List<Ingredient> ingredients = new List<Ingredient>();
-        private int totalCalories; // Total calories for the recipe
+        // Total calories for the recipe
+        private int totalCalories; 
 
         public Recipe(string name)
         {
             Name = name;
         }
 
-            public int GetTotalCalories()
+        // Method to get the total calories of the recipe
+        public int GetTotalCalories()
         {
             int total = 0;
             foreach (var ingredient in ingredients)
@@ -233,6 +253,7 @@ namespace RecipeManager
         // Event for notifying the user when a recipe exceeds 300 calories
         public event RecipeNotification NotifyCalorieExceedance;
 
+        // Method to add an ingredient to the recipe
         public void AddIngredient(string name, string quantity, string unit, int calories, string foodGroup)
         {
             ingredients.Add(new Ingredient(name, quantity, unit, calories, foodGroup));
@@ -243,9 +264,9 @@ namespace RecipeManager
             {
                 NotifyCalorieExceedance?.Invoke(Name);
             }
-        } 
+        }
 
-
+        // Method to display the details of the recipe
         public void DisplayRecipeDetails()
         {
             Console.WriteLine("\nRecipe: {0}", Name);
@@ -273,7 +294,7 @@ namespace RecipeManager
             Console.ResetColor();
         }
 
-
+        // Method to scale the recipe by a factor
         public void ScaleRecipe()
         {
             Console.Write("\nEnter scaling factor (0.5, 2, or 3): ");
@@ -294,6 +315,7 @@ namespace RecipeManager
             Console.WriteLine("Your total Calories: {0}", totalCalories);
         }
 
+        // Method to reset the quantities of the ingredients in the recipe
         public void ResetQuantities()
         {
             // Reset quantities of all ingredients
@@ -308,8 +330,8 @@ namespace RecipeManager
             Console.WriteLine("Your total Calories: {0}", totalCalories);
         }
 
-    
-      private int CalculateTotalCalories()
+        // Private method to calculate the total calories of the recipe
+        private int CalculateTotalCalories()
         {
             int total = 0;
             foreach (var ingredient in ingredients)
@@ -327,18 +349,21 @@ namespace RecipeManager
         public string Unit { get; }
         public int Calories { get; }
         public string FoodGroup { get; }
-        private double originalQuantity; // Store original quantity for resetting
+        // Store original quantity for resetting
+        private double originalQuantity; 
 
         public Ingredient(string name, string quantity, string unit, int calories, string foodGroup)
         {
             Name = name;
             Quantity = Convert.ToDouble(quantity);
-            originalQuantity = Quantity; // Store original quantity
+            // Store original quantity
+            originalQuantity = Quantity;
             Unit = unit;
             Calories = calories;
             FoodGroup = foodGroup;
         }
 
+        // Method to scale the quantity of the ingredient
         public void ScaleQuantity(double factor)
         {
             Quantity *= factor;
@@ -346,9 +371,11 @@ namespace RecipeManager
 
         public void ResetQuantity()
         {
-            Quantity = originalQuantity; // Reset quantity to original value
+            // Reset quantity to original value
+            Quantity = originalQuantity; 
         }
 
+        // Override ToString method to display ingredient details
         public override string ToString()
         {
             return string.Format("{0}: {1} {2}", Name, Quantity, Unit);
