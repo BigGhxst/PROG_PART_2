@@ -245,6 +245,7 @@ namespace RecipeManager
             int total = 0;
             foreach (var ingredient in ingredients)
             {
+                //This process sums up the calories of all ingredients in the recipe.
                 total += ingredient.Calories;
             }
             return total;                                                   
@@ -271,6 +272,7 @@ namespace RecipeManager
         {
             Console.WriteLine("\nRecipe: {0}", Name);
             Console.WriteLine("Ingredients:");
+            //This loop iterates over each Ingredient object in the ingredients collection.
             foreach (var ingredient in ingredients)
             {
                 Console.WriteLine("{0}", ingredient);
@@ -279,12 +281,14 @@ namespace RecipeManager
             // Set text color based on total calories
             if (totalCalories > 300)
             {
+                //reseting the text color (RED) in the console to its default value after displaying the recipe details.
                 Console.ForegroundColor = ConsoleColor.Red;
 
                 Console.WriteLine("WARNING!! WARNING!! YOUR TOTAL CALORIES HAVE EXCEEDED 300");
             }
             else
             {
+                //reseting the text color (GREEN) in the console to its default value after displaying the recipe details.
                 Console.ForegroundColor = ConsoleColor.Green;
 
                 Console.WriteLine("Your Total Calories: {0}", totalCalories);
@@ -333,7 +337,9 @@ namespace RecipeManager
         // Private method to calculate the total calories of the recipe
         private int CalculateTotalCalories()
         {
+            // initializing total to 0
             int total = 0;
+            //foreach loop iterates over each ingredient in the ingredients collection.
             foreach (var ingredient in ingredients)
             {
                 total += ingredient.Calories;
@@ -344,6 +350,9 @@ namespace RecipeManager
 
     class Ingredient
     {
+        //property declarations
+        //These properties are essential for encapsulating and managing the data related to an ingredient in the Ingredient class.
+        //They provide controlled access to the class's fields, ensuring that certain properties can only be modified in specific ways
         public string Name { get; }
         public double Quantity { get; private set; }
         public string Unit { get; }
@@ -355,6 +364,7 @@ namespace RecipeManager
         public Ingredient(string name, string quantity, string unit, int calories, string foodGroup)
         {
             Name = name;
+            //This line converts the quantity parameter to a double using Convert.ToDouble.
             Quantity = Convert.ToDouble(quantity);
             // Store original quantity
             originalQuantity = Quantity;
@@ -366,6 +376,7 @@ namespace RecipeManager
         // Method to scale the quantity of the ingredient
         public void ScaleQuantity(double factor)
         {
+            //This line multiplies the current value of Quantity by the provided factor and assigns the result back to Quantity.
             Quantity *= factor;
         }
 
@@ -378,6 +389,7 @@ namespace RecipeManager
         // Override ToString method to display ingredient details
         public override string ToString()
         {
+            //These are properties of the Ingredient class that hold the name, quantity, and unit of measurement of the ingredient.
             return string.Format("{0}: {1} {2}", Name, Quantity, Unit);
         }
     }
