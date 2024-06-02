@@ -6,6 +6,9 @@ using System.Linq;
 namespace RecipeManager
 {
     // Delegate for notifying the user when a recipe exceeds 300 calories
+    //This delegate is used to define the structure of methods that can be invoked when a recipe exceeds 300 calories.
+    //It's used to define an event in the Recipe class (NotifyCalorieExceedance), which is invoked when the total calories
+    //of a recipe exceed a certain threshold.
     public delegate void RecipeNotification(string recipeName);
 
     class Program
@@ -252,6 +255,7 @@ namespace RecipeManager
         }
 
         // Event for notifying the user when a recipe exceeds 300 calories
+        // declares an event named NotifyCalorieExceedance of type RecipeNotification, which is a delegate
         public event RecipeNotification NotifyCalorieExceedance;
 
         // Method to add an ingredient to the recipe
@@ -260,7 +264,9 @@ namespace RecipeManager
             ingredients.Add(new Ingredient(name, quantity, unit, calories, foodGroup));
             totalCalories += calories;
 
-            // Notify if total calories exceed 300
+            //This conditional statement checks if the total calories of the recipe exceed 300.
+            //If they do, it invokes the NotifyCalorieExceedance event, passing the name of the recipe (Name)
+            //as an argument to any subscribed event handlers.
             if (totalCalories > 300)
             {
                 NotifyCalorieExceedance?.Invoke(Name);
